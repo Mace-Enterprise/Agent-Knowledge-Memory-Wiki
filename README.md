@@ -123,4 +123,6 @@ See [`Wiki/guardrails/machinery-sync-engine-template.md`](Wiki/guardrails/machin
 
 ## License
 
-None — free sharing and improving - just let me know how you improved it. Only obligation is to mention the source and the creator. All rights reserved.
+[MIT](LICENSE) — free to use, share, and improve. The only obligation is keeping the
+copyright notice (attribution to the source and creator). If you improve it, I'd love
+to hear about it.
