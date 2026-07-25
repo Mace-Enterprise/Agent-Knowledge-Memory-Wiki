@@ -72,6 +72,9 @@ What makes it different:
    venv, registers the MCP, wires the post-commit reindex hook.
 4. Restart Claude Code / Codex; confirm roles + skills load and `search_notes` works.
 
+alternatively: 
+- Provide the locaiton of the wiki template and instruct Claude to install it :)
+
 Running live system + this template? Re-sync after machinery changes:
 
 ```
