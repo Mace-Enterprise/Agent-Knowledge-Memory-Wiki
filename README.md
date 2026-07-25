@@ -2,7 +2,7 @@
 
 **A shared, verified, self-improving memory for AI agents. One brain — many tools.**
 
-## 1. The problem
+## 1. The problem - It's Groundhog Day again
 
 Every AI agent starts every session at zero:
 
@@ -13,8 +13,8 @@ Every AI agent starts every session at zero:
 
 ## 2. How it solves it
 
-One idea: **a single markdown wiki, read by every agent, where knowledge only enters
-after it has been proven to work — and every mistake leaves behind a permanent rule.**
+One idea: **a cascading markdown wiki, readble by every agent, where knowledge only enters
+after it has been proven to work — every mistake leaves behind a permanent rule.** - It's not a simple store-in-wiki memory approach. 
 
 ```mermaid
 flowchart LR
@@ -41,6 +41,8 @@ What makes it different:
   fusion) surfaces prior learnings *before* an agent starts working — reuse, don't rediscover.
 - **Mistakes become rules.** Corrections turn into guardrails that load into every
   future session. The system provably stops repeating its errors. It memorizes the thoughtprocess.
+- ** Different levels of knowledge ** Beside canonical also chain of thought, mistakes, revelations are being stored. That helps the AI to avoid its own repeatedly appearing mistakes.
+- ** Projects ** - Goal driven instructions to specify the goal that has to be reached by the AI. Further, project maintain their backlogs and its project specific memory. 
 - **A team that coaches itself.** The roster is a talent pool, not a fixed team. Each project hires the smallest useful mix of roles — for example specifier, implementer, verifier, reviewer, researcher, security, and librarian — and may add domain-specific roles when new expertise is needed. New roles start on probation, earn a track record through verified work, and can later become reusable. Retrospectives turn finished work and owner corrections into role, skill, and guardrail updates. Adversarial review comes from a *different* model (GPT sparring), not self-review.
 
 ## 3. Features
@@ -59,7 +61,7 @@ What makes it different:
 - **`addons/wiki-graph`** — interactive graph visualization of the wiki (very lightweighted and simple viewer infused by the idea ob Obsidian).
 - **`sync.ps1` / `sync.sh`** — refresh this template from a live system:
   genericization (paths/names → placeholders) + built-in secret/leak checks.
-- **Repeatable project kickoff.** Every new project begins recall-first, then defines a goal-driven spec, a verifier, an environment contract, and a `TEAM.md`. `/karpathy-init` scaffolds this foundation; the project composes its team from the roster, and verified lessons flow back into the shared wiki.
+- **Repeatable project kickoff.** Every new project begins recall-first, then defines a goal-driven spec, a verifier, an environment contract, and a `TEAM.md`. `/karpathy-init` scaffolds this foundation; the project composes its team from the roster, and verified lessons flow back into the shared wiki. Also each projects maintain its own backlog.
 
 ## 4. Bootstrap
 
