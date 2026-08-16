@@ -1,0 +1,27 @@
+# Substitution map for sync.sh — EXAMPLE. Copy to `sync.map` and fill in your own.
+#
+# `sync.map` is git-ignored: its left-hand side is exactly the set of strings that
+# must never reach the public template. Keeping it out of sync.sh is what stops the
+# sanitizer from leaking through itself.
+#
+# Format:   <sed-pattern> => <replacement>
+# The pattern is a sed BRE; '.' conveniently matches both / and \ in paths.
+# Order matters — put longer, more specific patterns first.
+#
+# Every left-hand side is ALSO used as a forbidden pattern by the leak check, so
+# anything you list here is guaranteed to fail the build if it survives.
+
+# --- absolute paths on your machine ---
+D:.Sources.Your Live Wiki => <WIKI_DIR>
+D:..Sources..Your Live Wiki => <WIKI_DIR>
+D:.Sources.your-key-file.kfile => <KEY_FILE>
+D:.Sources.knowledge-recall-mcp => <RECALL_MCP_DIR>
+D:.Sources.knowledge-wiki-engine => <ENGINE_DIR>
+D:.Sources.An Unrelated Repo => <UNRELATED_REPO_DIR>
+C:/Users/yourname/.claude => ~/.claude
+C:\Users\yourname\.claude => ~/.claude
+/home/yourname/.claude => ~/.claude
+
+# --- project codenames and vendors that must not ship ---
+YourProjectCodename => ExampleApp
+YourDataVendor => ExampleDataProvider

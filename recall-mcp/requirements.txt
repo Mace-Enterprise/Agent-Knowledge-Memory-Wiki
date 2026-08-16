@@ -1,0 +1,5 @@
+# Pinned to the FastMCP 2.x line: 3.x regressed stdio tool-calls (handshake OK but
+# tools/call hung → MCP client repeatedly dropped/reconnected the server). 2026-06-26.
+fastmcp>=2.0,<3
+sqlite-vec>=0.1
+fastembed>=0.3

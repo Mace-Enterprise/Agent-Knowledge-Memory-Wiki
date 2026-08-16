@@ -1,0 +1,11 @@
+#!/bin/sh
+# Install: copy to your wiki repo's .git/hooks/pre-commit (chmod +x) and set the paths below.
+# Blocks a commit if wiki-audit finds ERRORs (broken links, missing role Status,
+# roster-count mismatch, secrets). Warnings do not block. Override: git commit --no-verify.
+WIKI="<WIKI_DIR>"
+PY="<ENGINE_DIR>/recall-mcp/.venv/Scripts/python.exe"
+"$PY" "$WIKI/scripts/wiki-audit.py" "$WIKI" || {
+  echo "" >&2
+  echo "COMMIT BLOCKED: wiki-audit found errors (above). Fix, or override: git commit --no-verify" >&2
+  exit 1
+}

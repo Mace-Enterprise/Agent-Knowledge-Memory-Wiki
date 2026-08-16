@@ -1,0 +1,33 @@
+{
+  "_comment": [
+    "Registry for project-boundary-check.py. Copy to project-boundaries.json and",
+    "adapt — that file is git-ignored because it contains YOUR machine paths.",
+    "",
+    "root:    the project's working directory. A project without one has its work",
+    "         done elsewhere, and its memory ends up in a foreign repo. That is the",
+    "         failure this registry exists to catch, so a missing root is an error.",
+    "markers: 3-8 terms only this project would use — device names, codenames,",
+    "         domain nouns. Not generic words: 'server', 'script', 'config' would",
+    "         match everything and the check would cry wolf until it is ignored."
+  ],
+  "projects": [
+    {
+      "name": "example-network",
+      "root": "/path/to/example-network",
+      "memory": "/path/to/example-network/.memory",
+      "markers": ["vlan", "switchmodel", "accesspoint", "dnsfilter"]
+    },
+    {
+      "name": "example-tradingapp",
+      "root": "/path/to/example-tradingapp",
+      "memory": "/path/to/example-tradingapp/.memory",
+      "markers": ["portfolio", "broker-api", "orderbook", "backtest"]
+    },
+    {
+      "name": "example-wiki",
+      "root": "/path/to/example-wiki",
+      "memory": "/path/to/example-wiki/.memory",
+      "markers": ["wikilink", "guardrail", "librarian"]
+    }
+  ]
+}

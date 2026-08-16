@@ -1,0 +1,19 @@
+{
+  "//": "Hook registration for ~/.claude/settings.json — merge into your 'hooks' key. Maintained by hand (sync.sh does not copy settings.json). session-start injects loop context + a pending session handoff; session-handoff-monitor asks Claude to persist in-flight state when context fills up (see also the /handoff command).",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          { "type": "command", "command": "node \"~/.claude/scripts/session-start.mjs\"", "timeout": 10 }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          { "type": "command", "command": "node \"~/.claude/scripts/session-handoff-monitor.mjs\"", "timeout": 10 }
+        ]
+      }
+    ]
+  }
+}

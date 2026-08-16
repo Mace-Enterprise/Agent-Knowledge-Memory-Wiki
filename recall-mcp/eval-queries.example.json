@@ -1,0 +1,9 @@
+[
+  {"q": "how do we start a new project", "expect": ["new-project-kickoff"]},
+  {"q": "do new skills and agents start active or on probation", "expect": ["skill-and-agent-probation-lifecycle"]},
+  {"q": "use Codex for a second opinion or peer review", "expect": ["codex-cross-model-integration"]},
+  {"q": "how does our semantic recall search work", "expect": ["local-recall-engine"]},
+  {"q": "should we adopt a multi-agent runtime framework like LangGraph", "expect": ["agent-orchestration-options"]},
+  {"q": "must we audit code pulled from GitHub before using it", "expect": ["third-party-skill-agent-security-audit"]},
+  {"q": "Karpathy spec verifier environment loop and agent discipline", "expect": ["karpathy-loop-and-agent-discipline"]}
+]

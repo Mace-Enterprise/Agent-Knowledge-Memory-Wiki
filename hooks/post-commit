@@ -1,0 +1,13 @@
+#!/bin/sh
+# Install: copy to your wiki repo's .git/hooks/post-commit (chmod +x) and set the paths below.
+# After each commit (backgrounded, non-blocking): reindex recall (wiki + project .memory dirs),
+# run wiki-audit, regenerate the wiki-graph addon.
+WIKI="<WIKI_DIR>"
+PY="<ENGINE_DIR>/recall-mcp/.venv/Scripts/python.exe"
+PROJ_MEM=""   # ;-separated per-project .memory dirs to index alongside the wiki, e.g. <repo>/.memory
+{
+  WIKI_DIR="$WIKI/Wiki" RECALL_EXTRA_DIRS="$PROJ_MEM" "$PY" "<ENGINE_DIR>/recall-mcp/server.py" index
+  RECALL_DB="<ENGINE_DIR>/recall-mcp/recall-index.sqlite" CLAUDE_HOME="$HOME/.claude" \
+    "$PY" "$WIKI/scripts/wiki-audit.py" "$WIKI" > "$WIKI/.wiki-audit.log" 2>&1
+  "$PY" "$WIKI/addons/wiki-graph/wiki-graph.py" "$WIKI"
+} >/dev/null 2>&1 &

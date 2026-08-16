@@ -1,0 +1,6 @@
+{
+  "id": "prj-fa6b4a1e931e",
+  "name": "engine",
+  "created": "2026-08-16",
+  "_note": "Stable project identity. NEVER change this id, not when the directory is renamed, moved, or the project itself is renamed. Paths change; identities must not, or every cross-repo reference rots silently."
+}

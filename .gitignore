@@ -1,0 +1,33 @@
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# recall index (built locally by knowledge-recall-mcp; never commit)
+recall-index.sqlite
+*.sqlite
+.venv/
+
+# wiki-audit report
+.wiki-audit.log
+
+# wiki-graph addon output
+addons/wiki-graph/wiki-graph.html
+addons/wiki-graph/vendor/
+
+# substitution map: real local paths, never published
+sync.map
+
+# guardrail event log: evidence, never committed
+recall-mcp/guardrail-events.jsonl
+
+# attestation log: evidence written by verifiers, never committed
+recall-mcp/attestations.jsonl
+
+# project registry: your machine paths, never published
+project-boundaries.json
+
+# volatile cross-tool working memory
+.memory/

@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+# Refuse to push a tree that fails the leak check.
+#
+# Why this exists: the rule "run the leak check before publishing" was written down,
+# and then broken twice in one day by the same mechanism — the gate was piped into
+# another command, which replaced its exit code, and the push proceeded over a red
+# check. A rule that depends on the author remembering it is not a control. This is
+# the control: it sits at the choke point, and it does not care what was typed.
+#
+# It checks the COMMIT BEING PUSHED, not the working tree. Those differ exactly when
+# it matters — a dirty working tree, a stale branch, an orphan publish branch built
+# moments ago. The commit is exported to a temporary directory and checked there.
+#
+# Install:  git config core.hooksPath .githooks
+# Bypass:   only with --no-verify, which is a deliberate, visible act.
+set -uo pipefail
+
+REPO="$(git rev-parse --show-toplevel)"
+# shellcheck source=/dev/null
+[ -f "$REPO/guardrail-log.sh" ] && . "$REPO/guardrail-log.sh"
+type gr_log >/dev/null 2>&1 || gr_log() { :; }
+CHECK="$REPO/leak-check.sh"
+MAP="${SYNC_MAP:-$REPO/sync.map}"   # git-ignored, so it is never inside the exported tree
+
+[ -x "$CHECK" ] || [ -f "$CHECK" ] || { echo "pre-push: leak-check.sh missing — refusing." >&2; exit 1; }
+
+if [ ! -f "$MAP" ]; then
+  echo "pre-push: no substitution map at $MAP — cannot verify what is being published." >&2
+  echo "          A check that cannot run is a failure, not a pass." >&2
+  gr_log "publish-gate-must-fail-closed" "blocked" "no substitution map"
+  exit 1
+fi
+
+fail=0
+while read -r _local_ref local_sha _remote_ref _remote_sha; do
+  # deletion of a remote ref: nothing to inspect
+  case "$local_sha" in *[!0]*) ;; *) continue ;; esac
+
+  tmp="$(mktemp -d)"
+  trap 'rm -rf "$tmp"' EXIT
+  if ! git archive "$local_sha" | tar -x -C "$tmp" 2>/dev/null; then
+    echo "pre-push: could not export $local_sha for inspection — refusing." >&2
+    exit 1
+  fi
+
+  echo "pre-push: leak check on $(git rev-parse --short "$local_sha") (the tree being pushed)"
+  if bash "$CHECK" "$tmp" "$MAP"; then
+    echo "pre-push: clean."
+    gr_log "publish-gate-must-fail-closed" "checked" "push of $(git rev-parse --short "$local_sha")"
+  else
+    echo "" >&2
+    echo "pre-push: REFUSED — the commit being pushed does not pass the leak check." >&2
+    echo "          Fix the tree; do not reach for --no-verify to make this go away." >&2
+    gr_log "publish-gate-must-fail-closed" "blocked" "refused $(git rev-parse --short "$local_sha")"
+    fail=1
+  fi
+  rm -rf "$tmp"
+done
+
+exit $fail

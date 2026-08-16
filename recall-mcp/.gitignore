@@ -1,0 +1,10 @@
+.venv/
+.venv-new/
+.venv-*/
+recall-index*.sqlite
+recall-retrieval-log.jsonl
+stdout*.txt
+stderr*.txt
+__pycache__/
+*.pyc
+.fastembed_cache/

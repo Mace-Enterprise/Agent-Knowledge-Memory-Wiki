@@ -1,0 +1,80 @@
+# Which wiki pages may ship in the public template — and why.
+#
+# The leak check asks "does this text contain a private path, token, or name?".
+# It never asked "is this page the owner's domain knowledge?" — which is why eight
+# project-derived pages sat in the public template from the first commit
+# (2026-06-18) until 2026-08-16. A genericized project page passes a string check
+# perfectly: rename the project and every pattern goes quiet, while the knowledge
+# it carries is still the owner's.
+#
+# So the decision moves here, per file, in writing. A page ships only if it is
+# MACHINERY: it describes how this memory system works. A page whose value comes
+# from a real project — its stack, its vendor, its trading logic — is DOMAIN
+# knowledge and stays in the live wiki, no matter how well it is sanitized.
+#
+# Format: one path per line, relative to the repo root, then "|", then the reason.
+# leak-check.sh fails on any shipped Wiki page missing from this list. Adding a
+# line is cheap; that is the point — the cost is having to state why.
+
+Wiki/index.md                                                  | navigation shell, template placeholders only
+Wiki/log.md                                                    | changelog shell, template placeholders only
+Wiki/adr/0002-team-coached-self-improvement-loop.md            | design decision about this system itself
+Wiki/knowledge/agent-orchestration-options.md                  | survey of agent frameworks, web-sourced, no project
+Wiki/knowledge/local-recall-engine.md                          | the recall MCP's own design
+Wiki/knowledge/codex-cross-model-integration.md                | cross-model sparring machinery
+Wiki/experience/methodology/cascaded-agent-memory.md           | memory architecture of this system
+Wiki/experience/methodology/karpathy-loop-and-agent-discipline.md | the 3-layer working model
+Wiki/experience/methodology/new-project-kickoff.md             | how a project adopts this system
+Wiki/experience/methodology/skill-and-agent-probation-lifecycle.md | how roles are adopted and retired
+Wiki/experience/methodology/team-coached-retrospective-loop.md | how the system learns from corrections
+Wiki/guardrails/gpt-export-import-triage.md                    | import discipline, generic
+Wiki/guardrails/machinery-sync-engine-template.md              | keeps this template in sync
+Wiki/guardrails/no-secrets-or-private-account-data.md          | generic hygiene rule
+Wiki/guardrails/no-unverified-assumptions.md                   | generic working rule
+Wiki/guardrails/parallel-agent-collaboration.md                | generic multi-agent rule
+Wiki/guardrails/repo-boundary-llm-knowledge-library.md         | scope rule for the wiki itself
+Wiki/guardrails/stay-on-the-primary-thread.md                  | generic working rule
+Wiki/guardrails/third-party-model-gate.md                      | generic supply-chain rule
+Wiki/guardrails/third-party-skill-agent-security-audit.md      | generic supply-chain rule
+Wiki/roster/index.md                                           | generic role brief, no domain
+Wiki/roster/role-analyst.md                                    | generic role brief, no domain
+Wiki/roster/role-api-integrator.md                             | generic role brief, no domain
+Wiki/roster/role-coach.md                                      | generic role brief, no domain
+Wiki/roster/role-code-reviewer.md                              | generic role brief, no domain
+Wiki/roster/role-implementer.md                                | generic role brief, no domain
+Wiki/roster/role-librarian.md                                  | generic role brief, no domain
+Wiki/roster/role-linux-websec-sme.md                           | generic role brief, no domain
+Wiki/roster/role-network-sme.md                                | generic role brief, no domain
+Wiki/roster/role-operations.md                                 | generic role brief, no domain
+Wiki/roster/role-orchestrator.md                               | generic role brief, no domain
+Wiki/roster/role-performance.md                                | generic role brief, no domain
+Wiki/roster/role-qa-test.md                                    | generic role brief, no domain
+Wiki/roster/role-researcher.md                                 | generic role brief, no domain
+Wiki/roster/role-security.md                                   | generic role brief, no domain
+Wiki/roster/role-specifier.md                                  | generic role brief, no domain
+Wiki/roster/role-ui-ux.md                                      | generic role brief, no domain
+Wiki/roster/role-verifier.md                                   | generic role brief, no domain
+Wiki/roster/role-wiki-critic.md                                | generic role brief, no domain
+Wiki/roster/role-wiki-editor.md                                | generic role brief, no domain
+
+# --- machinery guardrails, added 2026-08-16 with the sync-list extension ---
+Wiki/guardrails/a-filename-is-not-a-source-of-truth.md         | generic: the loader decides what is active, not the name
+Wiki/guardrails/confirm-the-design-target-before-recommending.md | generic engineering discipline
+Wiki/guardrails/credentials-are-owner-supplied.md              | how an agent must handle owner credentials
+Wiki/guardrails/fact-correction-sweep-all-pages.md             | wiki consistency machinery
+Wiki/guardrails/measurement-without-a-target-is-not-monitoring.md | generic: an instrument needs an expected value
+Wiki/guardrails/offer-wiki-capture-at-session-end.md           | capture workflow of this system
+Wiki/guardrails/pre-migration-secret-sweep.md                  | publishing discipline; incident is about repos, not domain
+Wiki/guardrails/project-boundary-check.md                      | project identity machinery
+Wiki/guardrails/publish-gate-must-fail-closed.md               | this template's own publish gate
+Wiki/guardrails/publishing-is-a-content-decision.md            | this template's own scope rule
+Wiki/guardrails/register-new-mcp-in-registry.md                | MCP bookkeeping of this system
+Wiki/guardrails/secure-repos-to-git-remote.md                  | generic: local commits are not a backup
+Wiki/guardrails/sweep-fallbacks-after-dependency-swap.md       | generic dependency discipline
+
+# Deliberately NOT shipped - the rule may read general, but the evidence is a real
+# system of the owner's, and that evidence is the page's substance:
+#   two trading guardrails    - execution and screening logic
+#   two infrastructure ones   - reasoned from the owner's own network and hosts
+# Their names stay out of this file on purpose: a list that spells out what it
+# withholds hands over the index to it. The live wiki holds the authoritative list.
